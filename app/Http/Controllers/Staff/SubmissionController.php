@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubmissionRequest;
 use App\Models\Category;
 use App\Models\Submission;
+use App\Services\ApprovalRoutingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Storage;
 
 class SubmissionController extends Controller
 {
+    protected ApprovalRoutingService $approvalRouting;
+
+    public function __construct(ApprovalRoutingService $approvalRouting)
+    {
+        $this->approvalRouting = $approvalRouting;
+    }
+
     public function index()
     {
         $submissions = Submission::with('category', 'attachments')
@@ -146,7 +154,10 @@ class SubmissionController extends Controller
             abort(403);
         }
 
-        $submission->update(['current_status' => 'submitted']);
+        DB::transaction(function () use ($submission) {
+            $submission->update(['current_status' => 'submitted']);
+            $this->approvalRouting->initiateRouting($submission->fresh());
+        });
 
         return redirect()
             ->route('staff.submissions.show', $submission)
