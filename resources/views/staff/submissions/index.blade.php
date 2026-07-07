@@ -3,9 +3,17 @@
         <h5 class="fw-bold mb-0" style="font-size: 1.1rem;">
             <i class="bi bi-file-earmark-text me-2 text-primary"></i>Daftar Pengajuan
         </h5>
-        <a href="{{ route('staff.submissions.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-lg me-1"></i> Buat Pengajuan
-        </a>
+        <div class="d-flex gap-2">
+            <a href="{{ route('export.pdf.submissions', request()->query()) }}" class="btn btn-sm btn-outline-gold rounded-pill px-3" target="_blank">
+                <i class="bi bi-file-pdf me-1"></i> PDF
+            </a>
+            <a href="{{ route('export.excel.submissions', request()->query()) }}" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                <i class="bi bi-file-excel me-1"></i> Excel
+            </a>
+            <a href="{{ route('staff.submissions.create') }}" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-1"></i> Buat Pengajuan
+            </a>
+        </div>
     </div>
 
     @if (session('success'))

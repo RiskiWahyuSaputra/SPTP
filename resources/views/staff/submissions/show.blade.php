@@ -2,14 +2,19 @@
     <div class="row g-3">
         <div class="col-lg-8">
             <div class="card shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <span><i class="bi bi-file-text me-2 text-primary"></i>Detail Pengajuan</span>
-                    @php
-                        $map = ['draft'=>'secondary','submitted'=>'info','waiting_spv'=>'warning','waiting_manager'=>'warning','waiting_director'=>'warning','waiting_finance'=>'primary','paid'=>'success','rejected'=>'danger'];
-                    @endphp
-                    <span class="badge bg-{{ $map[$submission->current_status] ?? 'secondary' }} fs-6">
-                        {{ str_replace('_', ' ', ucfirst($submission->current_status)) }}
-                    </span>
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="{{ route('export.pdf.submission', $submission) }}" class="btn btn-sm btn-outline-gold rounded-pill px-3" target="_blank">
+                            <i class="bi bi-file-pdf me-1"></i> PDF
+                        </a>
+                        @php
+                            $map = ['draft'=>'secondary','submitted'=>'info','waiting_spv'=>'warning','waiting_manager'=>'warning','waiting_director'=>'warning','waiting_finance'=>'primary','paid'=>'success','rejected'=>'danger'];
+                        @endphp
+                        <span class="badge bg-{{ $map[$submission->current_status] ?? 'secondary' }} fs-6">
+                            {{ str_replace('_', ' ', ucfirst($submission->current_status)) }}
+                        </span>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-sm">

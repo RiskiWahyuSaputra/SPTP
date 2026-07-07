@@ -27,6 +27,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/activity-logs', [App\Http\Controllers\ActivityLogController::class, 'index'])->name('activity-logs.index');
+    Route::get('/export/pdf/submissions', [App\Http\Controllers\ExportController::class, 'pdfSubmissionsReport'])->name('export.pdf.submissions');
+    Route::get('/export/pdf/submission/{submission}', [App\Http\Controllers\ExportController::class, 'pdfSubmission'])->name('export.pdf.submission');
+    Route::get('/export/pdf/submission/{submission}/download', [App\Http\Controllers\ExportController::class, 'pdfSubmissionDownload'])->name('export.pdf.submission.download');
+    Route::get('/export/excel/submissions', [App\Http\Controllers\ExportController::class, 'excelSubmissions'])->name('export.excel.submissions');
 });
 
 Route::middleware(['auth', 'verified', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
