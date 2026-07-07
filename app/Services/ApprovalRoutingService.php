@@ -120,7 +120,7 @@ class ApprovalRoutingService
             ->first();
 
         if (!$budget) {
-            return false;
+            return true;
         }
 
         return $budget->remaining() >= $submission->amount;

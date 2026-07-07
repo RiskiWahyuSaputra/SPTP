@@ -67,6 +67,10 @@
         </div>
     </div>
 
+    <x-confirm-dialog />
+
+    @stack('scripts')
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.getElementById('sidebar');

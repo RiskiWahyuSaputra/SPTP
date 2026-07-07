@@ -91,7 +91,7 @@
 
                         <div class="d-flex gap-2">
                             <a href="{{ route('finance.index') }}" class="btn btn-outline-secondary">Kembali</a>
-                            <button type="submit" class="btn btn-success flex-grow-1" onclick="return confirm('Konfirmasi keputusan?')">
+                            <button type="submit" class="btn btn-success flex-grow-1" data-confirm="Konfirmasi keputusan pembayaran? Tindakan ini tidak bisa dibatalkan." data-confirm-title="Konfirmasi Pembayaran">
                                 <i class="bi bi-send me-1"></i> Proses
                             </button>
                         </div>

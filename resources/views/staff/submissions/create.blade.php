@@ -28,8 +28,9 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="amount" class="form-label">Nilai Pengajuan (Rp) <span class="text-danger">*</span></label>
-                                <input id="amount" type="number" name="amount" class="form-control @error('amount') is-invalid @enderror" value="{{ old('amount') }}" min="1" step="0.01" required>
+                                <label for="amount_display" class="form-label">Nilai Pengajuan (Rp) <span class="text-danger">*</span></label>
+                                <input type="text" id="amount_display" class="form-control @error('amount') is-invalid @enderror" value="{{ old('amount') ? number_format(old('amount'), 0, ',', '.') : '' }}" placeholder="Rp 0" required>
+                                <input type="hidden" name="amount" id="amount" value="{{ old('amount') }}">
                                 @error('amount')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
 
@@ -58,4 +59,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('amount_display')?.addEventListener('input', function() {
+            let v = this.value.replace(/\./g, '').replace(/[^0-9]/g, '');
+            this.value = v ? new Intl.NumberFormat('id-ID').format(v) : '';
+            document.getElementById('amount').value = v;
+        });
+    </script>
 </x-app-layout>

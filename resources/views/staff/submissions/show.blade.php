@@ -54,14 +54,14 @@
                     </a>
                     <form method="POST" action="{{ route('staff.submissions.submit', $submission) }}">
                         @csrf
-                        <button type="submit" class="btn btn-success" onclick="return confirm('Kirim pengajuan? Data tidak bisa diubah lagi.')">
+                        <button type="submit" class="btn btn-success" data-confirm="Kirim pengajuan? Data tidak bisa diubah lagi." data-confirm-title="Kirim Pengajuan">
                             <i class="bi bi-send me-1"></i> Kirim Pengajuan
                         </button>
                     </form>
                     <form method="POST" action="{{ route('staff.submissions.destroy', $submission) }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Hapus pengajuan ini?')">
+                        <button type="submit" class="btn btn-outline-danger" data-confirm="Hapus pengajuan ini? Data akan dihapus permanen." data-confirm-title="Hapus Pengajuan">
                             <i class="bi bi-trash me-1"></i> Hapus
                         </button>
                     </form>

@@ -72,7 +72,7 @@
 
                         <div class="d-flex gap-2">
                             <a href="{{ route('approval.index') }}" class="btn btn-outline-secondary">Kembali</a>
-                            <button type="submit" class="btn btn-primary flex-grow-1" onclick="return confirm('Konfirmasi keputusan?')">
+                            <button type="submit" class="btn btn-primary flex-grow-1" data-confirm="Konfirmasi keputusan approval? Tindakan ini tidak bisa dibatalkan." data-confirm-title="Konfirmasi Approval">
                                 <i class="bi bi-send me-1"></i> Kirim Keputusan
                             </button>
                         </div>
