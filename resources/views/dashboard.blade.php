@@ -97,11 +97,11 @@
         {{-- Stat Cards --}}
         <div class="row g-3 mb-4">
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #FEF3C7);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));">
-                                <i class="bi bi-file-text text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-file-text fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Total Pengajuan</p>
@@ -112,30 +112,30 @@
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #FEF9C3);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #F59E0B, #D97706);">
-                                <i class="bi bi-hourglass-split text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-hourglass-split fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Menunggu</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-warning);">{{ $pending }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $pending }}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #DCFCE7);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #22C55E, #16A34A);">
-                                <i class="bi bi-check-circle text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-check-circle fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Dibayar</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-success);">{{ $paid }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $paid }}</h3>
                                 <small class="text-muted">Rp {{ number_format($paidAmount, 0, ',', '.') }}</small>
                             </div>
                         </div>
@@ -143,15 +143,15 @@
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #FEE2E2);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #EF4444, #DC2626);">
-                                <i class="bi bi-x-circle text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-x-circle fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Ditolak</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-danger);">{{ $rejected }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $rejected }}</h3>
                             </div>
                         </div>
                     </div>
@@ -182,16 +182,16 @@
             </div>
             <div class="col-xl-5">
                 {{-- Quick Action --}}
-                <div class="card border-0 shadow-sm mb-3" style="border-radius: 16px; background: linear-gradient(135deg, var(--color-primary), #1E293B);">
+                <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-4">
-                        <h6 class="fw-bold text-white mb-2" style="font-family: 'Lexend', sans-serif;"><i class="bi bi-lightning-fill me-2 text-gold"></i>Aksi Cepat</h6>
-                        <p class="text-white-50 small mb-3">Buat pengajuan baru atau lanjutkan draft yang tersimpan.</p>
+                        <h6 class="fw-bold mb-2" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);"><i class="bi bi-lightning-fill me-2 text-gold"></i>Aksi Cepat</h6>
+                        <p class="text-muted small mb-3">Buat pengajuan baru atau lanjutkan draft yang tersimpan.</p>
                         <div class="d-flex gap-2">
-                            <a href="{{ route('staff.submissions.create') }}" class="btn text-white fw-semibold flex-fill" style="background: var(--color-gold); border-color: var(--color-gold); border-radius: 10px;">
+                            <a href="{{ route('staff.submissions.create') }}" class="btn text-white fw-semibold flex-fill" style="background: var(--color-gold); border-color: var(--color-gold); border-radius: 8px;">
                                 <i class="bi bi-plus-lg me-1"></i> Pengajuan Baru
                             </a>
                             @if($lastDraft)
-                                <a href="{{ route('staff.submissions.show', $lastDraft) }}" class="btn btn-outline-light flex-fill" style="border-radius: 10px;">
+                                <a href="{{ route('staff.submissions.show', $lastDraft) }}" class="btn btn-outline-gold flex-fill" style="border-radius: 8px;">
                                     <i class="bi bi-pencil me-1"></i> Draft
                                 </a>
                             @endif
@@ -296,15 +296,15 @@
         {{-- Stat Cards --}}
         <div class="row g-3 mb-4">
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #FEF9C3);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #F59E0B, #D97706);">
-                                <i class="bi bi-inbox text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-inbox fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Menunggu Approval</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-warning);">{{ $pendingCount }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $pendingCount }}</h3>
                                 <small class="text-muted">Rp {{ number_format($pendingAmount, 0, ',', '.') }}</small>
                             </div>
                         </div>
@@ -312,45 +312,45 @@
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #DCFCE7);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #22C55E, #16A34A);">
-                                <i class="bi bi-check2-all text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-check2-all fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Disetujui</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-success);">{{ $approvedCount }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $approvedCount }}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #FEE2E2);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #EF4444, #DC2626);">
-                                <i class="bi bi-x-circle text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-x-circle fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Ditolak</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-danger);">{{ $rejectedCount }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $rejectedCount }}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #FEF3C7);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));">
-                                <i class="bi bi-shield-check text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-shield-check fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Level Saya</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-gold); text-transform: capitalize;">{{ $roleSlug }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary); text-transform: capitalize;">{{ $roleSlug }}</h3>
                             </div>
                         </div>
                     </div>
@@ -420,15 +420,15 @@
         {{-- Stat Cards --}}
         <div class="row g-3 mb-4">
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #DBEAFE);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #0EA5E9, #0284C7);">
-                                <i class="bi bi-clock text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-clock fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Menunggu Pembayaran</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: #0EA5E9;">{{ $waitingFinance }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $waitingFinance }}</h3>
                                 <small class="text-muted">Rp {{ number_format($waitingAmount, 0, ',', '.') }}</small>
                             </div>
                         </div>
@@ -436,15 +436,15 @@
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #DCFCE7);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #22C55E, #16A34A);">
-                                <i class="bi bi-credit-card-2-front text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-credit-card-2-front fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Total Dibayar</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-success);">{{ $totalPaid }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $totalPaid }}</h3>
                                 <small class="text-muted">Rp {{ number_format($totalPaidAmount, 0, ',', '.') }}</small>
                             </div>
                         </div>
@@ -452,30 +452,30 @@
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; background: linear-gradient(135deg, #fff 60%, #FEE2E2);">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #EF4444, #DC2626);">
-                                <i class="bi bi-x-circle text-white fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-x-circle fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Ditolak</p>
-                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-danger);">{{ $totalRejected }}</h3>
+                                <h3 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">{{ $totalRejected }}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100 position-relative overflow-hidden" style="border-radius: 16px; background: linear-gradient(135deg, var(--color-primary), #1E293B);">
-                    <div class="card-body p-3 position-relative" style="z-index: 1;">
+                <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; border-left: 4px solid var(--color-gold) !important;">
+                    <div class="card-body p-3">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 48px; height: 48px; background: rgba(255,255,255,0.15);">
-                                <i class="bi bi-wallet2 text-gold fs-5"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded" style="width: 44px; height: 44px; background: var(--color-gold-light); color: var(--color-gold);">
+                                <i class="bi bi-wallet2 fs-5"></i>
                             </div>
                             <div class="flex-grow-1 min-w-0">
-                                <p class="text-white-50 small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Saldo Kas</p>
-                                <h4 class="fw-bold mb-0 text-white" style="font-family: 'Lexend', sans-serif;">
+                                <p class="text-muted small text-uppercase fw-semibold mb-0" style="font-size: 11px; letter-spacing: 0.5px;">Saldo Kas</p>
+                                <h4 class="fw-bold mb-0" style="font-family: 'Lexend', sans-serif; color: var(--color-primary);">
                                     Rp {{ number_format($cashBalance?->balance ?? 0, 0, ',', '.') }}
                                 </h4>
                             </div>
