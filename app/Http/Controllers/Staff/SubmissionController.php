@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubmissionRequest;
 use App\Models\Category;
 use App\Models\Submission;
+use App\Services\ActivityLogger;
 use App\Services\ApprovalRoutingService;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +17,14 @@ use Illuminate\Support\Facades\Storage;
 class SubmissionController extends Controller
 {
     protected ApprovalRoutingService $approvalRouting;
+    protected ActivityLogger $activityLogger;
+    protected NotificationService $notificationService;
 
-    public function __construct(ApprovalRoutingService $approvalRouting)
+    public function __construct(ApprovalRoutingService $approvalRouting, ActivityLogger $activityLogger, NotificationService $notificationService)
     {
         $this->approvalRouting = $approvalRouting;
+        $this->activityLogger = $activityLogger;
+        $this->notificationService = $notificationService;
     }
 
     public function index(Request $request)
@@ -93,6 +99,8 @@ class SubmissionController extends Controller
             return $submission;
         });
 
+        $this->activityLogger->submissionCreated($submission);
+
         return redirect()
             ->route('staff.submissions.show', $submission)
             ->with('success', 'Pengajuan berhasil dibuat.');
@@ -127,6 +135,8 @@ class SubmissionController extends Controller
 
         $validated = $request->validated();
 
+        $oldData = $submission->toArray();
+
         DB::transaction(function () use ($validated, $request, $submission) {
             $submission->update([
                 'category_id' => $validated['category_id'],
@@ -149,6 +159,8 @@ class SubmissionController extends Controller
             }
         });
 
+        $this->activityLogger->submissionUpdated($submission, $oldData, $submission->fresh()->toArray());
+
         return redirect()
             ->route('staff.submissions.show', $submission)
             ->with('success', 'Pengajuan berhasil diperbarui.');
@@ -159,6 +171,8 @@ class SubmissionController extends Controller
         if ($submission->user_id !== Auth::id() || $submission->current_status !== 'draft') {
             abort(403);
         }
+
+        $this->activityLogger->submissionDeleted($submission);
 
         DB::transaction(function () use ($submission) {
             foreach ($submission->attachments as $attachment) {
@@ -183,6 +197,9 @@ class SubmissionController extends Controller
             $submission->update(['current_status' => 'submitted']);
             $this->approvalRouting->initiateRouting($submission->fresh());
         });
+
+        $this->activityLogger->submissionSubmitted($submission);
+        $this->notificationService->submissionSubmitted($submission);
 
         return redirect()
             ->route('staff.submissions.show', $submission)

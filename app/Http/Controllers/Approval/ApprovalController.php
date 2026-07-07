@@ -8,7 +8,9 @@ use App\Models\Approval;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\Submission;
+use App\Services\ActivityLogger;
 use App\Services\ApprovalRoutingService;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +18,14 @@ use Illuminate\Support\Facades\DB;
 class ApprovalController extends Controller
 {
     protected ApprovalRoutingService $approvalRouting;
+    protected ActivityLogger $activityLogger;
+    protected NotificationService $notificationService;
 
-    public function __construct(ApprovalRoutingService $approvalRouting)
+    public function __construct(ApprovalRoutingService $approvalRouting, ActivityLogger $activityLogger, NotificationService $notificationService)
     {
         $this->approvalRouting = $approvalRouting;
+        $this->activityLogger = $activityLogger;
+        $this->notificationService = $notificationService;
     }
 
     public function index(Request $request)
@@ -120,6 +126,14 @@ class ApprovalController extends Controller
                 $request->notes
             );
         });
+
+        if ($request->decision === 'approved') {
+            $this->activityLogger->approved($submission, $role->name, $request->notes);
+        } else {
+            $this->activityLogger->rejected($submission, $role->name, $request->notes ?? 'Ditolak');
+        }
+
+        $this->notificationService->approvalProcessed($submission, $roleSlug, $request->decision);
 
         $message = $request->decision === 'approved'
             ? 'Pengajuan berhasil disetujui.'

@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function () {
     })->name('attachment.serve');
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/activity-logs', [App\Http\Controllers\ActivityLogController::class, 'index'])->name('activity-logs.index');
+});
+
 Route::middleware(['auth', 'verified', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
     Route::resource('submissions', SubmissionController::class)->except(['show']);
     Route::get('submissions/{submission}', [SubmissionController::class, 'show'])->name('submissions.show');

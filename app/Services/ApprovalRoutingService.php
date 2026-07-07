@@ -6,6 +6,7 @@ use App\Models\Approval;
 use App\Models\Budget;
 use App\Models\Role;
 use App\Models\Submission;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class ApprovalRoutingService
@@ -42,6 +43,7 @@ class ApprovalRoutingService
         } else {
             if (!$this->checkBudget($submission)) {
                 $this->reject($submission, 'Budget kategori tidak mencukupi.');
+                App::make(ActivityLogger::class)->budgetRejected($submission);
                 return;
             }
             $submission->update(['current_status' => 'waiting_spv']);

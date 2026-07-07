@@ -7,17 +7,23 @@ use App\Http\Requests\PaymentRequest;
 use App\Models\CashBalance;
 use App\Models\Payment;
 use App\Models\Submission;
+use App\Services\ActivityLogger;
 use App\Services\ApprovalRoutingService;
+use App\Services\NotificationService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
     protected ApprovalRoutingService $approvalRouting;
+    protected ActivityLogger $activityLogger;
+    protected NotificationService $notificationService;
 
-    public function __construct(ApprovalRoutingService $approvalRouting)
+    public function __construct(ApprovalRoutingService $approvalRouting, ActivityLogger $activityLogger, NotificationService $notificationService)
     {
         $this->approvalRouting = $approvalRouting;
+        $this->activityLogger = $activityLogger;
+        $this->notificationService = $notificationService;
     }
 
     public function index()
@@ -87,6 +93,14 @@ class PaymentController extends Controller
                 'paid_at' => $status === 'paid' ? now() : null,
             ]);
         });
+
+        if ($request->decision === 'paid') {
+            $this->activityLogger->paymentPaid($submission);
+            $this->notificationService->paymentProcessed($submission, 'paid');
+        } else {
+            $this->activityLogger->paymentRejected($submission, $request->notes ?? 'Ditolak oleh Finance');
+            $this->notificationService->paymentProcessed($submission, 'rejected');
+        }
 
         $message = $request->decision === 'paid'
             ? 'Pembayaran berhasil diproses.'

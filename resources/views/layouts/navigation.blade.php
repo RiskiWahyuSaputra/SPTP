@@ -29,3 +29,10 @@
         <span>Pembayaran</span>
     </a>
 @endif
+
+<div class="nav-section-label mt-2">Sistem</div>
+
+<a class="nav-link {{ request()->routeIs('activity-logs.*') ? 'active' : '' }}" href="{{ route('activity-logs.index') }}">
+    <i class="bi bi-clock-history"></i>
+    <span>Activity Log</span>
+</a>
