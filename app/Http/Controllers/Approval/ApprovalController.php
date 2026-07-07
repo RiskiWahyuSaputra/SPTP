@@ -82,7 +82,7 @@ class ApprovalController extends Controller
             ? 'Pengajuan berhasil disetujui.'
             : 'Pengajuan ditolak.';
 
-        return redirect()->route('approval.index')->with('success', $message);
+        return redirect('/approval')->with('success', $message);
     }
 
     private function authorizeApproval(Submission $submission, string $roleSlug): void

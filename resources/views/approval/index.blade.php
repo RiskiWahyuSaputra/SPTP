@@ -46,7 +46,7 @@
                                 </td>
                                 <td class="text-muted small">{{ $submission->created_at->format('d/m/Y') }}</td>
                                 <td class="text-end">
-                                    <a href="{{ route('approval.show', $submission) }}" class="btn btn-sm btn-primary">
+                                    <a href="/approval/detail/{{ $submission->id }}" class="btn btn-sm btn-primary">
                                         <i class="bi bi-check2-circle me-1"></i> Proses
                                     </a>
                                 </td>

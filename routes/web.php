@@ -23,10 +23,22 @@ Route::middleware(['auth', 'verified', 'role:staff'])->prefix('staff')->name('st
     Route::post('submissions/{submission}/submit', [SubmissionController::class, 'submit'])->name('submissions.submit');
 });
 
-Route::middleware(['auth', 'verified', 'role:spv,manager,direktur'])->prefix('approval')->name('approval.')->group(function () {
+Route::prefix('approval')->name('approval.')->middleware(['auth', 'verified', 'role:spv,manager,direktur'])->group(function () {
     Route::get('/', [App\Http\Controllers\Approval\ApprovalController::class, 'index'])->name('index');
-    Route::get('{submission}', [App\Http\Controllers\Approval\ApprovalController::class, 'show'])->name('show');
-    Route::post('{submission}/process', [App\Http\Controllers\Approval\ApprovalController::class, 'process'])->name('process');
+    Route::get('detail/{submission}', [App\Http\Controllers\Approval\ApprovalController::class, 'show'])->name('show');
+    Route::post('process/{submission}', function (Illuminate\Http\Request $request, App\Models\Submission $submission) {
+        $roleSlug = Auth::user()->role->slug;
+        app(App\Services\ApprovalRoutingService::class)->processApproval(
+            $submission,
+            $roleSlug,
+            $request->input('decision', 'rejected'),
+            $request->input('notes')
+        );
+        $success = $request->input('decision') === 'approved'
+            ? 'Pengajuan berhasil disetujui.'
+            : 'Pengajuan ditolak.';
+        return redirect('/approval')->with('success', $success);
+    })->name('process');
 });
 
 Route::middleware(['auth', 'verified', 'role:finance'])->prefix('finance')->name('finance.')->group(function () {
