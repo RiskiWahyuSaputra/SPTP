@@ -113,7 +113,12 @@
         </div>
     </div>
 
-    <div class="mt-3">
-        {{ $submissions->links() }}
+    <div class="d-flex justify-content-between align-items-center mt-3 px-1">
+        <small class="text-muted">
+            Menampilkan {{ $submissions->firstItem() ?? 0 }}–{{ $submissions->lastItem() ?? 0 }} dari {{ $submissions->total() }} pengajuan
+        </small>
+        <div>
+            {{ $submissions->links() }}
+        </div>
     </div>
 </x-app-layout>
