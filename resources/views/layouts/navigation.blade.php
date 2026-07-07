@@ -28,6 +28,13 @@
                         </a>
                     </li>
                 @endif
+                @if(Auth::user()?->hasRole('finance'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('finance.*') ? 'active' : '' }}" href="{{ route('finance.index') }}">
+                            Pembayaran
+                        </a>
+                    </li>
+                @endif
             </ul>
 
             <ul class="navbar-nav ms-auto">

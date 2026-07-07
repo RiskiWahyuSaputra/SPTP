@@ -31,7 +31,9 @@ Route::middleware(['auth', 'verified', 'role:spv,manager,direktur'])->prefix('ap
 });
 
 Route::middleware(['auth', 'verified', 'role:finance'])->prefix('finance')->name('finance.')->group(function () {
-    // Will be filled in Phase 11
+    Route::get('/', [App\Http\Controllers\Finance\PaymentController::class, 'index'])->name('index');
+    Route::get('{submission}', [App\Http\Controllers\Finance\PaymentController::class, 'show'])->name('show');
+    Route::post('{submission}/process', [App\Http\Controllers\Finance\PaymentController::class, 'process'])->name('process');
 });
 
 require __DIR__.'/auth.php';
