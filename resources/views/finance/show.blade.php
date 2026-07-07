@@ -19,7 +19,7 @@
                         <h6 class="fw-semibold mt-3 mb-2"><i class="bi bi-paperclip me-1"></i> Lampiran</h6>
                         <div class="d-flex flex-wrap gap-2">
                             @foreach ($submission->attachments as $attachment)
-                                <a href="{{ Storage::url($attachment->file_path) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                <a href="{{ route('attachment.serve', $attachment->id) }}" data-attachment data-attachment-name="{{ $attachment->file_name }}" data-attachment-type="{{ $attachment->file_type }}" class="btn btn-sm btn-outline-secondary">
                                     <i class="bi bi-file-{{ in_array($attachment->file_type, ['jpg','jpeg','png']) ? 'image' : 'pdf' }} me-1"></i>
                                     {{ $attachment->file_name }}
                                 </a>

@@ -31,12 +31,12 @@
                                 <div class="col-md-4 col-6">
                                     <div class="border rounded p-2 text-center bg-light">
                                         @if (in_array($attachment->file_type, ['jpg', 'jpeg', 'png']))
-                                            <img src="{{ Storage::url($attachment->file_path) }}" class="img-fluid rounded mb-1" style="max-height: 100px; object-fit: cover;">
+                                            <img src="{{ route('attachment.serve', $attachment->id) }}" class="img-fluid rounded mb-1" style="max-height: 100px; object-fit: cover;">
                                         @else
                                             <i class="bi bi-file-pdf fs-1 text-danger"></i>
                                         @endif
                                         <div class="small text-truncate mt-1">{{ $attachment->file_name }}</div>
-                                        <a href="{{ Storage::url($attachment->file_path) }}" class="btn btn-sm btn-outline-primary mt-1" target="_blank">
+                                        <a href="{{ route('attachment.serve', $attachment->id) }}" data-attachment data-attachment-name="{{ $attachment->file_name }}" data-attachment-type="{{ $attachment->file_type }}" class="btn btn-sm btn-outline-primary mt-1">
                                             <i class="bi bi-download"></i>
                                         </a>
                                     </div>

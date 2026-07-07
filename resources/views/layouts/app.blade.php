@@ -69,6 +69,32 @@
 
     <x-confirm-dialog />
 
+    {{-- Attachment Preview Modal --}}
+    <div class="modal fade" id="attachmentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+                <div class="modal-header border-0 pb-0">
+                    <h6 class="modal-title fw-bold" id="attachmentModalTitle" style="font-family: 'Lexend', sans-serif;">Lampiran</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body text-center p-3" id="attachmentModalBody">
+                    <div class="text-muted py-5">
+                        <div class="spinner-border text-gold" role="status">
+                            <span class="visually-hidden">Memuat...</span>
+                        </div>
+                        <p class="mt-2 small">Memuat lampiran...</p>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0 justify-content-between">
+                    <span class="small text-muted" id="attachmentModalInfo"></span>
+                    <a href="#" class="btn btn-sm btn-outline-secondary" id="attachmentDownloadBtn" download>
+                        <i class="bi bi-download me-1"></i> Download
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @stack('scripts')
 
     <script>
@@ -93,6 +119,30 @@
             if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
             if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
             if (overlay) overlay.addEventListener('click', closeSidebar);
+
+            // Attachment preview modal
+            document.querySelectorAll('[data-attachment]').forEach(el => {
+                el.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+                    const name = this.getAttribute('data-attachment-name') || 'Lampiran';
+                    const type = this.getAttribute('data-attachment-type') || '';
+                    const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(type);
+
+                    document.getElementById('attachmentModalTitle').textContent = name;
+                    document.getElementById('attachmentModalInfo').textContent = name + (type ? ' (' + type.toUpperCase() + ')' : '');
+                    document.getElementById('attachmentDownloadBtn').href = url;
+
+                    const body = document.getElementById('attachmentModalBody');
+                    if (isImage) {
+                        body.innerHTML = '<img src="' + url + '" class="img-fluid rounded" style="max-height: 75vh; object-fit: contain;" alt="' + name + '">';
+                    } else {
+                        body.innerHTML = '<iframe src="' + url + '" class="w-100 border-0 rounded" style="height: 70vh;" title="' + name + '"></iframe>';
+                    }
+
+                    new bootstrap.Modal(document.getElementById('attachmentModal')).show();
+                });
+            });
         });
     </script>
 </body>
