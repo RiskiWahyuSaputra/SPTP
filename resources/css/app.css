@@ -1,0 +1,282 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --color-primary: #1E293B;
+    --color-primary-light: #334155;
+    --color-accent: #0EA5E9;
+    --color-accent-light: #E0F2FE;
+    --color-success: #22C55E;
+    --color-warning: #F59E0B;
+    --color-danger: #EF4444;
+    --color-info: #0EA5E9;
+    --color-bg: #F1F5F9;
+    --color-surface: #FFFFFF;
+    --color-text: #0F172A;
+    --color-text-muted: #64748B;
+    --color-border: #E2E8F0;
+    --sidebar-width: 260px;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+.navbar {
+    background: var(--color-primary) !important;
+    border-bottom: none !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    padding: 0 !important;
+}
+
+.navbar .container {
+    height: 64px;
+}
+
+.navbar-brand {
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.3px;
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+.navbar .nav-link {
+    color: rgba(255,255,255,.75) !important;
+    font-weight: 500;
+    font-size: .875rem;
+    padding: 0 1rem !important;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    transition: all .15s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: #fff !important;
+    background: rgba(255,255,255,.08);
+    border-bottom-color: var(--color-accent);
+}
+
+.navbar .dropdown-toggle {
+    color: rgba(255,255,255,.85) !important;
+    font-weight: 500;
+}
+
+.navbar .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 24px rgba(0,0,0,.12);
+    border-radius: 12px;
+    margin-top: 8px !important;
+}
+
+.navbar .dropdown-item {
+    padding: .6rem 1.2rem;
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.navbar .dropdown-item:hover {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    transition: box-shadow .2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.card-header {
+    background: transparent;
+    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    font-size: .95rem;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.table {
+    margin-bottom: 0;
+    font-size: .875rem;
+}
+
+.table thead th {
+    background: var(--color-bg);
+    font-weight: 600;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    padding: .75rem 1rem;
+}
+
+.table td {
+    padding: .75rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.table tbody tr:hover {
+    background: #F8FAFC;
+}
+
+.table-hover > tbody > tr:hover {
+    background: #F8FAFC;
+}
+
+.badge {
+    font-weight: 600;
+    font-size: .75rem;
+    padding: .35em .65em;
+    border-radius: 6px;
+}
+
+.btn {
+    font-weight: 600;
+    font-size: .875rem;
+    padding: .5rem 1rem;
+    border-radius: 8px;
+    transition: all .15s ease;
+}
+
+.btn-primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.btn-primary:hover {
+    background: #0284C7;
+    border-color: #0284C7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, .3);
+}
+
+.btn-outline-primary {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.btn-outline-primary:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.btn-success {
+    background: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.btn-danger {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.btn-warning {
+    background: var(--color-warning);
+    border-color: var(--color-warning);
+    color: #fff;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: .85rem;
+    color: var(--color-text);
+    margin-bottom: .4rem;
+}
+
+.form-control, .form-select {
+    border: 1.5px solid var(--color-border);
+    border-radius: 8px;
+    padding: .55rem .85rem;
+    font-size: .9rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, .15);
+}
+
+.form-check-input:checked {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.pagination {
+    gap: 4px;
+}
+
+.page-link {
+    border-radius: 8px !important;
+    border: none;
+    color: var(--color-text);
+    font-weight: 500;
+    padding: .45rem .85rem;
+}
+
+.page-item.active .page-link {
+    background: var(--color-accent);
+    color: #fff;
+}
+
+.alert {
+    border: none;
+    border-radius: 10px;
+    font-size: .875rem;
+}
+
+.bg-primary-subtle { background: #E0F2FE !important; }
+.bg-success-subtle { background: #DCFCE7 !important; }
+.bg-warning-subtle { background: #FEF3C7 !important; }
+.bg-danger-subtle { background: #FEE2E2 !important; }
+.bg-info-subtle { background: #E0F2FE !important; }
+
+.text-bg-primary { background: var(--color-accent) !important; }
+.text-bg-success { background: var(--color-success) !important; }
+.text-bg-warning { background: var(--color-warning) !important; }
+.text-bg-danger { background: var(--color-danger) !important; }
+
+.list-group-item {
+    border-color: var(--color-border);
+    padding: 1rem 1.25rem;
+}
+
+.card-title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.table-sm th,
+.table-sm td {
+    padding: .5rem .75rem;
+}
+
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0,0,0,.06) !important;
+}
+
+footer {
+    background: #fff;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: .8rem;
+}
