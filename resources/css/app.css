@@ -562,6 +562,24 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .fw-bold, .navbar-brand {
 .bg-warning-subtle { background: #FEF3C7 !important; }
 .bg-danger-subtle { background: #FEE2E2 !important; }
 .bg-info-subtle { background: #E0F2FE !important; }
+.bg-gold-subtle { background: #FEF3C7 !important; }
+
+.text-gold { color: var(--color-gold) !important; }
+
+.btn-outline-gold {
+    color: var(--color-gold) !important;
+    border-color: var(--color-gold) !important;
+    background: transparent !important;
+    transition: all 0.2s ease;
+}
+.btn-outline-gold:hover {
+    color: #fff !important;
+    background: var(--color-gold) !important;
+    border-color: var(--color-gold) !important;
+}
+.btn-outline-gold:focus {
+    box-shadow: 0 0 0 0.2rem rgba(161, 98, 7, 0.25);
+}
 
 /* ===== LIST GROUP ===== */
 .list-group-item {
