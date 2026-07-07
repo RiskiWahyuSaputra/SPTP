@@ -14,6 +14,13 @@
                         Dashboard
                     </a>
                 </li>
+                @if(Auth::user()?->hasRole('staff'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('staff.submissions.*') ? 'active' : '' }}" href="{{ route('staff.submissions.index') }}">
+                            Pengajuan Saya
+                        </a>
+                    </li>
+                @endif
             </ul>
 
             <ul class="navbar-nav ms-auto">
