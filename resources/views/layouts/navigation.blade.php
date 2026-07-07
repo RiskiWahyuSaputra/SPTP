@@ -21,6 +21,13 @@
                         </a>
                     </li>
                 @endif
+                @if(Auth::user()?->hasRole(['spv', 'manager', 'direktur']))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('approval.*') ? 'active' : '' }}" href="{{ route('approval.index') }}">
+                            Approval
+                        </a>
+                    </li>
+                @endif
             </ul>
 
             <ul class="navbar-nav ms-auto">

@@ -25,7 +25,9 @@ Route::middleware(['auth', 'verified', 'role:staff'])->prefix('staff')->name('st
 });
 
 Route::middleware(['auth', 'verified', 'role:spv,manager,direktur'])->prefix('approval')->name('approval.')->group(function () {
-    // Will be filled in Phase 10
+    Route::get('/', [App\Http\Controllers\Approval\ApprovalController::class, 'index'])->name('index');
+    Route::get('{submission}', [App\Http\Controllers\Approval\ApprovalController::class, 'show'])->name('show');
+    Route::post('{submission}/process', [App\Http\Controllers\Approval\ApprovalController::class, 'process'])->name('process');
 });
 
 Route::middleware(['auth', 'verified', 'role:finance'])->prefix('finance')->name('finance.')->group(function () {
