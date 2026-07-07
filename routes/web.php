@@ -17,4 +17,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Staff routes
+Route::middleware(['auth', 'verified', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
+    // Will be filled in Phase 8
+});
+
+// Approver routes (SPV, Manager, Direktur)
+Route::middleware(['auth', 'verified', 'role:spv,manager,direktur'])->prefix('approval')->name('approval.')->group(function () {
+    // Will be filled in Phase 10
+});
+
+// Finance routes
+Route::middleware(['auth', 'verified', 'role:finance'])->prefix('finance')->name('finance.')->group(function () {
+    // Will be filled in Phase 11
+});
+
 require __DIR__.'/auth.php';
