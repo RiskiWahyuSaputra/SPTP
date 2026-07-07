@@ -21,14 +21,39 @@ class SubmissionController extends Controller
         $this->approvalRouting = $approvalRouting;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $submissions = Submission::with('category', 'attachments')
-            ->where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $query = Submission::with('category', 'attachments')
+            ->where('user_id', Auth::id());
 
-        return view('staff.submissions.index', compact('submissions'));
+        if ($request->filled('status')) {
+            $query->where('current_status', $request->status);
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        if ($request->filled('search')) {
+            $s = $request->search;
+            $query->where(function ($q) use ($s) {
+                $q->where('submission_number', 'like', "%{$s}%")
+                  ->orWhere('description', 'like', "%{$s}%");
+            });
+        }
+
+        $submissions = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
+        $categories = Category::where('is_active', true)->get();
+
+        return view('staff.submissions.index', compact('submissions', 'categories'));
     }
 
     public function create()
