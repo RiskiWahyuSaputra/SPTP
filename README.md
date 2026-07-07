@@ -1,60 +1,134 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Pengajuan Transaksi Pengeluaran (SPTP)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web berbasis Laravel untuk digitalisasi proses pengajuan dan persetujuan transaksi pengeluaran perusahaan dengan workflow approval berjenjang yang dinamis.
 
-## About Laravel
+## Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Manajemen Pengajuan** — Staff dapat membuat, mengedit, dan mengirim pengajuan dengan lampiran dokumen
+- **Workflow Approval Dinamis** — Routing otomatis berdasarkan kategori dan nilai pengajuan (7 kondisi)
+- **RBAC** — 5 role: Staff, SPV, Manager, Direktur, Finance
+- **Validasi Budget** — Pengecekan budget per kategori sebelum approval
+- **Manajemen Kas** — Finance memvalidasi saldo sebelum pembayaran
+- **Dashboard Per Role** — Statistik dan antrian sesuai role masing-masing
+- **Riwayat Approval** — Timeline keputusan lengkap dengan catatan
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Persyaratan Sistem
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP ^8.2
+- Composer
+- MySQL 8.0+ / MariaDB 10+
+- Node.js & NPM (untuk build frontend)
 
-## Learning Laravel
+## Instalasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```bash
+# Clone repository
+git clone https://github.com/username/sptp.git
+cd sptp
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Install dependensi PHP
+composer install
 
-## Laravel Sponsors
+# Copy environment
+cp .env.example .env
+php artisan key:generate
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Konfigurasi database di .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sptp
+DB_USERNAME=root
+DB_PASSWORD=
 
-### Premium Partners
+# Buat database
+mysql -u root -e "CREATE DATABASE sptp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Jalankan migrasi & seeder
+php artisan migrate --seed
 
-## Contributing
+# Install dependensi frontend
+npm install
+npm run build
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Buat storage link
+php artisan storage:link
+```
 
-## Code of Conduct
+## Menjalankan Aplikasi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan serve
+```
 
-## Security Vulnerabilities
+Akses di http://localhost:8000
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Akun Testing
 
-## License
+| Role | Email | Password |
+|------|-------|----------|
+| Staff | staff@test.com | password |
+| SPV | spv@test.com | password |
+| Manager | manager@test.com | password |
+| Direktur | direktur@test.com | password |
+| Finance | finance@test.com | password |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# SPTP
+## Struktur Database
+
+### Entity Relationship
+
+```
+roles ──┐── users ──┐── submissions ──┐── approvals
+        │           │                 │
+        │           │                 ├── submission_attachments
+        │           │                 └── payments
+        └── categories ── budgets
+```
+
+### Tabel Utama
+
+| Tabel | Deskripsi |
+|-------|-----------|
+| `roles` | Master data role (Staff, SPV, Manager, Direktur, Finance) |
+| `users` | Data pengguna dengan relasi role_id |
+| `categories` | Kategori pengajuan (PO Produk, Operasional, ATK, dll) |
+| `budgets` | Alokasi anggaran per kategori per periode (YYYY-MM) |
+| `submissions` | Data pengajuan (nomor unik, nilai, status workflow) |
+| `submission_attachments` | Lampiran file (PDF/JPG/PNG, max 5MB) |
+| `approvals` | Riwayat keputusan approval per level (sequence, decision, notes) |
+| `payments` | Riwayat pembayaran (balance_before, balance_after, status) |
+| `cash_balances` | Saldo kas perusahaan |
+
+## Workflow Approval
+
+```
+Staff → SPV → {PO Produk?} → Ya → Direktur → Finance
+             {Tidak} → {Nilai > 5jt?} → Ya → Manager → {Nilai > 10jt?} → Ya → Direktur
+                                         Tidak             Tidak
+                                          ↓                   ↓
+                                    Cek Budget          Cek Budget
+                                          ↓                   ↓
+                                    SPV Approve         Manager Approve
+                                          ↓                   ↓
+                                     Finance ←───────────────┘
+                                          ↓
+                                    Cek Saldo → Paid / Rejected
+```
+
+### 7 Kondisi Bisnis
+
+1. Kategori PO Produk → langsung ke Direktur
+2. Bukan PO Produk & >Rp5jt → Staff → SPV → Manager
+3. >Rp10jt → eskalasi Manager → Direktur
+4. Budget tidak cukup → Rejected
+5. Approver reject → Rejected
+6. Semua approval selesai → Waiting Finance
+7. Saldo cukup → Paid; tidak cukup → Rejected
+
+## Tech Stack
+
+- **Backend:** Laravel 12, PHP 8.3
+- **Frontend:** Bootstrap 5.3, Bootstrap Icons
+- **Database:** MySQL
+- **Auth:** Laravel Breeze
+- **Build:** Vite
