@@ -5,12 +5,18 @@ Aplikasi web berbasis Laravel untuk digitalisasi proses pengajuan dan persetujua
 ## Fitur
 
 - **Manajemen Pengajuan** — Staff dapat membuat, mengedit, dan mengirim pengajuan dengan lampiran dokumen
+- **Multi File Upload** — Upload banyak file sekaligus (PDF/JPG/PNG, max 5MB per file) via Laravel Storage
 - **Workflow Approval Dinamis** — Routing otomatis berdasarkan kategori dan nilai pengajuan (7 kondisi)
 - **RBAC** — 5 role: Staff, SPV, Manager, Direktur, Finance
 - **Validasi Budget** — Pengecekan budget per kategori sebelum approval
 - **Manajemen Kas** — Finance memvalidasi saldo sebelum pembayaran
-- **Dashboard Per Role** — Statistik dan antrian sesuai role masing-masing
+- **Dashboard Per Role** — Statistik dan antrian sesuai role masing-masing dengan Chart.js
 - **Riwayat Approval** — Timeline keputusan lengkap dengan catatan
+- **Activity Log** — Catat semua aktivitas (buat, ubah, kirim, approve, reject, bayar) dengan data audit trail
+- **Email Notification** — Notifikasi otomatis via email ke SPV (pengajuan baru) dan Staff (approve/reject/bayar)
+- **Export PDF** — Download detail pengajuan & laporan dalam format PDF
+- **Export Excel** — Export data pengajuan ke format XLSX
+- **API Endpoint** — REST API untuk integrasi sistem eksternal (token-based auth via Laravel Sanctum)
 
 ## Persyaratan Sistem
 
@@ -83,6 +89,9 @@ roles ──┐── users ──┐── submissions ──┐── approval
         │           │                 ├── submission_attachments
         │           │                 └── payments
         └── categories ── budgets
+
+activity_logs (polymorphic: submissions & users)
+cash_balances (standalone)
 ```
 
 ### Tabel Utama
@@ -98,6 +107,8 @@ roles ──┐── users ──┐── submissions ──┐── approval
 | `approvals` | Riwayat keputusan approval per level (sequence, decision, notes) |
 | `payments` | Riwayat pembayaran (balance_before, balance_after, status) |
 | `cash_balances` | Saldo kas perusahaan |
+| `activity_logs` | Riwayat aktivitas sistem dengan audit trail (old/new data) |
+| `personal_access_tokens` | Token API untuk autentikasi Sanctum |
 
 ## Workflow Approval
 
@@ -125,10 +136,59 @@ Staff → SPV → {PO Produk?} → Ya → Direktur → Finance
 6. Semua approval selesai → Waiting Finance
 7. Saldo cukup → Paid; tidak cukup → Rejected
 
+## Notifikasi Email (Opsional)
+
+Untuk mengaktifkan email notifikasi, konfigurasi `.env`:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=email@gmail.com
+MAIL_PASSWORD=app_password_16_digit
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=email@gmail.com
+MAIL_FROM_NAME="SPTP System"
+```
+
+> **Catatan:** Untuk Gmail, aktifkan **2-Step Verification** dan buat **App Password** di https://myaccount.google.com/apppasswords
+
+## API Documentation
+
+Endpoint REST API tersedia di `/api/`. Autentikasi menggunakan **Bearer Token** (Laravel Sanctum).
+
+### Autentikasi
+
+```bash
+# Login
+POST /api/login
+Body: { "email": "staff@test.com", "password": "password" }
+Response: { "token": "xxx", "user": {...} }
+
+# Request dengan token
+GET /api/user
+Header: Authorization: Bearer xxx
+```
+
+### Endpoints
+
+| Method | Endpoint | Auth | Deskripsi |
+|--------|----------|------|-----------|
+| POST | `/api/login` | - | Login |
+| POST | `/api/logout` | ✅ | Logout |
+| GET | `/api/user` | ✅ | Profil user |
+| GET | `/api/submissions` | ✅ | Daftar pengajuan |
+| GET | `/api/submissions/{id}` | ✅ | Detail pengajuan |
+| POST | `/api/submissions` | ✅ | Buat pengajuan |
+| POST | `/api/submissions/{id}/submit` | ✅ | Kirim pengajuan |
+| GET | `/api/approvals` | ✅ | Daftar approval pending |
+| POST | `/api/approvals/{id}/process` | ✅ | Approve/reject |
+
 ## Tech Stack
 
-- **Backend:** Laravel 12, PHP 8.3
-- **Frontend:** Bootstrap 5.3, Bootstrap Icons
+- **Backend:** Laravel 12, PHP ^8.2
+- **Frontend:** Bootstrap 5.3, Bootstrap Icons, Chart.js
 - **Database:** MySQL
-- **Auth:** Laravel Breeze
+- **Auth:** Laravel Breeze, Laravel Sanctum (API)
+- **Export:** DomPDF (PDF), OpenSpout (Excel)
 - **Build:** Vite
